@@ -6,17 +6,13 @@ const productList = document.querySelector("#productList");
 const productForm = document.querySelector("#productForm");
 const validationErrorMessage = document.querySelector("#validationErrorMessage");
 const fragment = document.createDocumentFragment();
-console.log(productForm)
-
 
 
 //Array productos:
-let productArray = recoverProductsForLocalStorage() //Caga los productos guardados en el navegador (si existen). 
-
-
-
+let productArray = []//Caga los productos guardados en el navegador (si existen). 
 
 //EVENTOS:----------------------------------------------------------------------------------------------//
+
 
 //Evento: SUBMIT, añadir producto
 productForm.addEventListener("submit", ((event)=>{
@@ -28,14 +24,21 @@ productForm.addEventListener("submit", ((event)=>{
         validationErrorMessage.textContent = ""
     }else{
         validationErrorMessage.textContent = "Nombre inapropiado, solo puede contener letras y espacios."
+        
     }
     
 }))
 
 
 //Evento: CLICK, eliminar producto
-productList.addEventListener("click", deleteProduct)
-
+//productList.addEventListener("click", deleteProduct)
+productList.addEventListener("click", (event) =>{
+     if (event.target.classList.contains("deleteButton")){ //Si hacemos click en un botón eliminar se ejecutará el siguiente bloque de código:
+        const productId = event.target.dataset.productId //Accede al id del producto (establecido dentro del objeto dataset)
+        deleteProduct(productId)
+        createTable() //Invoca la función que re-crea la tabla esta vez sin los productos eliminados.
+     }
+})
 
 
 
@@ -43,11 +46,16 @@ productList.addEventListener("click", deleteProduct)
 
 
 //FUNCIONES:----------------------------------------------------------------------------------------------//
-
+/**
+ * Check if a string has min two characters, only contains letter and blank spaces.
+ * @param {string} str the string to validate.
+ * @returns {bool} Return if the string meets the requirements.
+ */
 const validate = str =>{
     const regEx = /^[a-zA-ZÀ-ÿ\s]{2,40}$/
     return regEx.test(str)
 }
+
 
 //Función: Añadir producto al Array (creación o incremento en contador)
 /**
@@ -72,9 +80,7 @@ function addProduct(productName){
     }
 
     saveProductsForLocalStorage()//Guarda los cambios del productArray
-    console.log(productArray)
 }
-
 
 
 //Función: Pintar Producto
@@ -102,7 +108,6 @@ function createTableProduct(product){
 }
 
 
-
 //Función: Pintar tabla
 /**
  * Creates full table with a row per product inside the product array. First deletes the previous content and refills with the updated array. 
@@ -118,28 +123,24 @@ function createTable(){
 }
 
 
-
 //Función borrar Producto
 /**
  * When clicking on the button the
  * @param {MouseEvent} event - Click event generated when clicking on the "Eliminar" button.
  */
-function deleteProduct(event){
-        if (event.target.classList.contains("deleteButton")){ //Si hacemos click en un botón eliminar se ejecutará el siguiente bloque de código:
-        const productId = event.target.dataset.productId //Accede al id del producto (establecido dentro del objeto dataset)
-        const existingProduct = productArray.find((product) => productId === product.id)//Encuentra el primer elemento que tiene ese id. 
-        
-        existingProduct.count -=1
-        if(existingProduct.count === 0){//Elimina el elemento del array si el contador llega a 0
-            productArray = productArray.filter((product) => productId !== product.id)//Filtra el array y devuelve los productos con un id distinto al del botón.
-            //Transformamos el product array filtrándolo.
-        }
-        
-        saveProductsForLocalStorage() //Guarda los cambios del productArray
-        createTable() //Invoca la función que re-crea la tabla esta vez sin los productos eliminados.
+function deleteProduct(productId){
+    const existingProduct = productArray.find((product) => productId === product.id)//Encuentra el primer elemento que tiene ese id. 
+    
+    existingProduct.count -=1
+    if(existingProduct.count === 0){//Elimina el elemento del array si el contador llega a 0
+        productArray = productArray.filter((product) => productId !== product.id)//Filtra el array y devuelve los productos con un id distinto al del botón.
+        //Transformamos el product array filtrándolo.
     }
+    
+    saveProductsForLocalStorage() //Guarda los cambios del productArray
+    
+    
 }
-
 
 
 /*Funciones Local Storage:
@@ -166,13 +167,7 @@ function recoverProductsForLocalStorage(){
 
 
 
-
 //INVOCACIONES:-------------------------------------------------------------------------------------//
 
+productArray = recoverProductsForLocalStorage() 
 createTable(); //Recupera los productos guardados en el navegador (si existen) al inicializar.
-
-
-
-//TODO: validar.
-
-

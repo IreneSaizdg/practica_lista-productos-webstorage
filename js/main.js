@@ -8,17 +8,16 @@ const fragment = document.createDocumentFragment();
 console.log(productForm)
 
 
-
-
-
 //array productos:
-const productArray = [
+let productArray = [
     // {
     //     id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
     //     nombre: "producto 1",
     //     cantidad: 1
     // }
 ]
+
+
 
 
 
@@ -32,9 +31,29 @@ productForm.addEventListener("submit", ((event)=>{
 }))
 
 
+//Evento: CLICK, eliminar producto
+/*CLICK -> eliminar -> */ // eliminar prductos con .filter(id !== del id que está buscando el botón)
+
+productList.addEventListener("click", ((event) =>{
+    if (event.target.classList.contains("deleteButton")){ //Si hacemos click en un botón eliminar se ejecutará el siguiente bloque de código:
+        const productId = event.target.dataset.productId
+        const existingProduct = productArray.find((product) => productId === product.id)//Encuentra el primer elemento que tiene ese id. 
+        
+        existingProduct.count -=1
+        if(existingProduct.count === 0){//Elimina el elemento del array si el contador llega a 0
+            productArray = productArray.filter((product) => productId !== product.id)//Filtra el array y devuelve los productos con un id distinto al del botón.
+            //Transformamos el product array filtrándolo.
+        }
+        
+        createTable()
+    }
+}))
 
 
 
+function deleteProduct(){
+    
+}
 
 
 
@@ -82,6 +101,8 @@ function createTableProduct(product){
     tableColName.textContent = product.name
     tableColCount.textContent = product.count
     deleteProductButton.textContent = "ELIMINAR"
+    deleteProductButton.classList.add("deleteButton") //crea una clase "deleteButton" para todos los botones de eliminar.
+    deleteProductButton.dataset.productId = product.id //dataset se inventa un atributo de una etiqueta html que puede contener lo que quieras
     
     tableRow.append(tableColName, tableColCount, tableColEdition)
     tableColEdition.append(deleteProductButton)
@@ -106,8 +127,3 @@ function createTable(){
 
 
 
-
-
-/*CLICK -> eliminar -> */ // eliminar prductos con .filter(id !== del id que está buscando el botón)
-
-/*eliminar*/

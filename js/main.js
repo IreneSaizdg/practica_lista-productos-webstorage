@@ -8,15 +8,10 @@ const fragment = document.createDocumentFragment();
 console.log(productForm)
 
 
-//array productos:
-let productArray = [
-    /* {
-         id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
-         nombre: "producto 1",
-         cantidad: 1
-    }*/
-]
 
+//Array productos:
+let productArray = recoverProductsForLocalStorage() //Caga los productos guardados en el navegador (si existen). 
+createTable(); //Recupera los productos guardados en el navegador (si existen) al inicializar.
 
 
 
@@ -62,6 +57,8 @@ function addProduct(productName){
         }
         productArray.push(newProduct)//Añade el newProduct al array de productos
     }
+
+    saveProductsForLocalStorage()//Guarda los cambios del productArray
     console.log(productArray)
 }
 
@@ -125,12 +122,39 @@ function deleteProduct(event){
             //Transformamos el product array filtrándolo.
         }
         
+        saveProductsForLocalStorage() //Guarda los cambios del productArray
         createTable() //Invoca la función que re-crea la tabla esta vez sin los productos eliminados.
     }
 }
 
 
 
+/*Funciones Local Storage:
+    Guardar y recuperar productArray en el almacenamiento del navegador local. */
 
+//Guardar para local Storage:
+/**
+ * Saves the product Array data: saves it in a key, and turns it into a string. 
+ */
+function saveProductsForLocalStorage(){
+    localStorage.setItem("productArray", JSON.stringify(productArray)) //Almacena (key, value) el contendido de productArray y lo convierte en un string.
+}
+
+//Recuperar para el local Storage:
+/**
+ * Recovers the product Array data: recovers the string and turns it into an array of objects.
+ */
+function recoverProductsForLocalStorage(){
+    const recoveredProducts = JSON.parse(localStorage.getItem("productArray")) || [];//Recupera ese string y lo convierte en un array de objetos de nuevo.
+    return recoveredProducts
+}
+
+
+
+
+
+
+
+//TODO: validar.
 
 

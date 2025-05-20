@@ -2,19 +2,38 @@
 
 
 // VARIABLES: 
+const listaProductos = document.querySelector("#listaProductos");
+const formularioProductos = document.querySelector("#formularioProductos");
+console.log(formularioProductos)
+
+
+
+
 
 //array productos:
 const arrayProductos = [
-    {
-        id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
-        producto: "x 1",
-        cantidad: 1
-    }
+    // {
+    //     id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
+    //     producto: "x 1",
+    //     cantidad: 1
+    // }
 ]
 
+
+
 //EVENTOS:
+//Evento SUBMIT añadir producto
+formularioProductos.addEventListener("submit", ((event)=>{
+    event.preventDefault();
+    console.log('Está funcionando')
+    }
+))
+
+
 
 /*SUBMIT -> formulario */ //.find para comprobar si un producto existe o no, si existe aumenta el contador si no, se añade el producto a la tabla
+
+
 /*CLICK -> eliminar -> */ // eliminar prductos con .filter(id !== del id que está buscando el botón)
 
 /*eliminar/
@@ -28,8 +47,29 @@ const arrayProductos = [
 
 
 
-
 // FUNCIONES: 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 /**
  * Agrega un producto a la cesta.

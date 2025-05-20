@@ -21,15 +21,31 @@ const productArray = [
 
 
 
-//EVENTOS:
-//Evento SUBMIT añadir producto
+//EVENTOS:----------------------------------------------------------------------------------------------//
+
+//Evento: SUBMIT, añadir producto
 productForm.addEventListener("submit", ((event)=>{
     event.preventDefault();
-    const productName = productForm.elements["name"].value
-    // console.log(nombreProducto)
-    // console.log(arrayProductos)
+    addProduct(productForm.elements["name"].value) 
+}))
+
+
+
+
+
+
+
+
+
+
+//FUNCIONES:----------------------------------------------------------------------------------------------//
+
+/**
+ * Add a product to the product Array. If already exists increment count +1, if not, create a new product object.
+ * @param {string} productName Name of the product to insert in the product Array. 
+ */
+function addProduct(productName){
     const formatedId = productName.split(" ").join("-")
-    // console.log(formatedId) 
 
     const existingProduct = productArray.find((product) => productName === product.name)//Si no existe devuelve undefined, si sí el primer elemento que cumple la condición. 
     if (existingProduct !== undefined){
@@ -44,15 +60,12 @@ productForm.addEventListener("submit", ((event)=>{
         }
         productArray.push(newProduct)//Añade el newProduct al array de productos
     }
-    
     console.log(productArray)
-
-    
-}))
+}
 
 
 
-/*SUBMIT -> formulario */ //.find para comprobar si un producto existe o no, si existe aumenta el contador si no, se añade el producto a la tabla
+
 
 
 /*CLICK -> eliminar -> */ // eliminar prductos con .filter(id !== del id que está buscando el botón)
@@ -60,10 +73,7 @@ productForm.addEventListener("submit", ((event)=>{
 /*eliminar/
 
 
-/*añadirAlCarrito
-    si existe -> incrementar contador
-    si no push de nuevo producto
-*/
+
  
 
 

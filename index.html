@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Práctica Lista Productos Local y Session Storage</title>
+    
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <!-- Formulario de entrada de productos: -->
+    <header>
+        <h1>Formulario de entrada de productos</h1>
+    </header>
+
+    <form action="/enviar-datos" method="post" enctype="multipart/form-data">
+        <!-- Campo de texto -->
+        <label for="nombre">Nuevo producto:</label>
+        <input type="text" id="nombre" name="nombre" placeholder="Escribe tu producto" required><br><br>
+        
+        <!-- Botón de AGREGAR -->
+        <input type="submit" value="AGREGAR">
+    </form>
+
+    <br>
+    <br>
+    <br>          
+    
+
+
+    <!-- Lista de productos tipo tabla: 
+    En cada fila: 
+        Nombre del productos
+        Contador
+        Botón eliminar (*Si el contador llega a cero el producto se elimina) -->
+
+    <table border="1" cellpadding="5" cellspacing="0">
+    <!-- Fila de encabezado -->
+    <thead>   
+        <tr>
+            <th>Producto</th>
+            <th>Contador</th>
+            <th>Edición</th>
+        </tr>
+    </thead> 
+
+        <!-- Datos del primer producto (DINÁMICO)-->
+    <tbody>
+        <tr>
+            <td>Macarrones</td>
+            <td>x1</td>
+            <td><button>ELIMINAR</button></td>
+        </tr>
+    </tbody>
+    </table>
+    
+    
+    <script src="/js/main.js"></script>
+</body>
+</html>

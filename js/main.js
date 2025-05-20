@@ -10,13 +10,12 @@ console.log(productForm)
 
 //array productos:
 let productArray = [
-    // {
-    //     id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
-    //     nombre: "producto 1",
-    //     cantidad: 1
-    // }
+    /* {
+         id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
+         nombre: "producto 1",
+         cantidad: 1
+    }*/
 ]
-
 
 
 
@@ -32,28 +31,9 @@ productForm.addEventListener("submit", ((event)=>{
 
 
 //Evento: CLICK, eliminar producto
-/*CLICK -> eliminar -> */ // eliminar prductos con .filter(id !== del id que está buscando el botón)
-
-productList.addEventListener("click", ((event) =>{
-    if (event.target.classList.contains("deleteButton")){ //Si hacemos click en un botón eliminar se ejecutará el siguiente bloque de código:
-        const productId = event.target.dataset.productId
-        const existingProduct = productArray.find((product) => productId === product.id)//Encuentra el primer elemento que tiene ese id. 
-        
-        existingProduct.count -=1
-        if(existingProduct.count === 0){//Elimina el elemento del array si el contador llega a 0
-            productArray = productArray.filter((product) => productId !== product.id)//Filtra el array y devuelve los productos con un id distinto al del botón.
-            //Transformamos el product array filtrándolo.
-        }
-        
-        createTable()
-    }
-}))
+productList.addEventListener("click", deleteProduct)
 
 
-
-function deleteProduct(){
-    
-}
 
 
 
@@ -61,6 +41,7 @@ function deleteProduct(){
 
 //FUNCIONES:----------------------------------------------------------------------------------------------//
 
+//Función: Añadir producto al Array (creación o incremento en contador)
 /**
  * Add a product to the product Array. If already exists increment count +1, if not, create a new product object.
  * @param {string} productName Name of the product to insert in the product Array. 
@@ -85,7 +66,8 @@ function addProduct(productName){
 }
 
 
-//Función: Pintar tabla
+
+//Función: Pintar Producto
 /**
  * Creates table product (one row). It has a name, a count, and a button for edition. 
  * @param {object} product Atributes-> name : string, count : number.
@@ -109,6 +91,9 @@ function createTableProduct(product){
     return tableRow
 }
 
+
+
+//Función: Pintar tabla
 /**
  * Creates full table with a row per product inside the product array. First deletes the previous content and refills with the updated array. 
  */
@@ -120,6 +105,28 @@ function createTable(){
     }) 
     productList.append(fragment)
 
+}
+
+
+
+//Función borrar Producto
+/**
+ * When clicking on the button the
+ * @param {MouseEvent} event - Click event generated when clicking on the "Eliminar" button.
+ */
+function deleteProduct(event){
+        if (event.target.classList.contains("deleteButton")){ //Si hacemos click en un botón eliminar se ejecutará el siguiente bloque de código:
+        const productId = event.target.dataset.productId //Accede al id del producto (establecido dentro del objeto dataset)
+        const existingProduct = productArray.find((product) => productId === product.id)//Encuentra el primer elemento que tiene ese id. 
+        
+        existingProduct.count -=1
+        if(existingProduct.count === 0){//Elimina el elemento del array si el contador llega a 0
+            productArray = productArray.filter((product) => productId !== product.id)//Filtra el array y devuelve los productos con un id distinto al del botón.
+            //Transformamos el product array filtrándolo.
+        }
+        
+        createTable() //Invoca la función que re-crea la tabla esta vez sin los productos eliminados.
+    }
 }
 
 

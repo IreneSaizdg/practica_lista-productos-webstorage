@@ -11,7 +11,7 @@ console.log(productForm)
 
 //Array productos:
 let productArray = recoverProductsForLocalStorage() //Caga los productos guardados en el navegador (si existen). 
-createTable(); //Recupera los productos guardados en el navegador (si existen) al inicializar.
+
 
 
 
@@ -143,6 +143,7 @@ function saveProductsForLocalStorage(){
 //Recuperar para el local Storage:
 /**
  * Recovers the product Array data: recovers the string and turns it into an array of objects.
+ * @returns {Array<Object>} An array of product objects recovered from localStorage, or an empty array if none exist.
  */
 function recoverProductsForLocalStorage(){
     const recoveredProducts = JSON.parse(localStorage.getItem("productArray")) || [];//Recupera ese string y lo convierte en un array de objetos de nuevo.
@@ -152,6 +153,10 @@ function recoverProductsForLocalStorage(){
 
 
 
+
+//INVOCACIONES:-------------------------------------------------------------------------------------//
+
+createTable(); //Recupera los productos guardados en el navegador (si existen) al inicializar.
 
 
 

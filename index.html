@@ -15,10 +15,10 @@
 
     <main>
         <section>
-            <form id="formularioProductos" action="/enviar-datos" method="get" enctype="multipart/form-data">
+            <form id="productForm" action="/enviar-datos" method="get" enctype="multipart/form-data">
                 <!-- Campo de texto -->
-                <label for="nombreProducto">Nuevo producto:</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Escribe tu producto" required><br><br>
+                <label for="productName">Nuevo producto:</label>
+                <input type="text" id="name" name="name" placeholder="Escribe tu producto" required>
                 
                 <!-- Botón de AGREGAR -->
                 <input type="submit" value="AGREGAR">
@@ -47,7 +47,7 @@
                     </tr>
                 </thead> 
                 <!-- Datos del primer producto (DINÁMICO)-->
-                <tbody id="listaProductos">
+                <tbody id="productList">
                     <!-- <tr>
                         <td>Macarrones</td>
                         <td>x1</td>

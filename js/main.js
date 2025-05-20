@@ -2,19 +2,19 @@
 
 
 // VARIABLES: 
-const listaProductos = document.querySelector("#listaProductos");
-const formularioProductos = document.querySelector("#formularioProductos");
-console.log(formularioProductos)
+const productList = document.querySelector("#productList");
+const productForm = document.querySelector("#productForm");
+console.log(productForm)
 
 
 
 
 
 //array productos:
-const arrayProductos = [
+const productArray = [
     // {
     //     id: "x-1", //dinámico. Transformar el nombre de producto en un id, reemplazar espacios por un guión.
-    //     producto: "x 1",
+    //     nombre: "producto 1",
     //     cantidad: 1
     // }
 ]
@@ -23,11 +23,32 @@ const arrayProductos = [
 
 //EVENTOS:
 //Evento SUBMIT añadir producto
-formularioProductos.addEventListener("submit", ((event)=>{
+productForm.addEventListener("submit", ((event)=>{
     event.preventDefault();
-    console.log('Está funcionando')
+    const productName = productForm.elements["name"].value
+    // console.log(nombreProducto)
+    // console.log(arrayProductos)
+    const formatedId = productName.split(" ").join("-")
+    // console.log(formatedId) 
+
+    const existingProduct = productArray.find((product) => productName === product.name)//Si no existe devuelve undefined, si sí el primer elemento que cumple la condición. 
+    if (existingProduct !== undefined){
+        //Si ya hay un producto/objeto con ese nombre.
+        existingProduct.count += 1 
+    } else {
+        //Si no existe un producto/objeto con ese nombre, añade un nuevo producto
+        const newProduct = {
+        id: formatedId,
+        name: productName,
+        count: 1 
+        }
+        productArray.push(newProduct)//Añade el newProduct al array de productos
     }
-))
+    
+    console.log(productArray)
+
+    
+}))
 
 
 

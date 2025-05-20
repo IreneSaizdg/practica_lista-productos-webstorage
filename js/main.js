@@ -4,6 +4,7 @@
 // VARIABLES: 
 const productList = document.querySelector("#productList");
 const productForm = document.querySelector("#productForm");
+const validationErrorMessage = document.querySelector("#validationErrorMessage");
 const fragment = document.createDocumentFragment();
 console.log(productForm)
 
@@ -20,8 +21,15 @@ let productArray = recoverProductsForLocalStorage() //Caga los productos guardad
 //Evento: SUBMIT, añadir producto
 productForm.addEventListener("submit", ((event)=>{
     event.preventDefault();
-    addProduct(productForm.elements["name"].value) 
-    createTable()
+    const productName = productForm.elements["name"].value
+    if(validate(productName)){
+        addProduct(productName) 
+        createTable()
+        validationErrorMessage.textContent = ""
+    }else{
+        validationErrorMessage.textContent = "Nombre inapropiado, solo puede contener letras y espacios."
+    }
+    
 }))
 
 
@@ -35,6 +43,11 @@ productList.addEventListener("click", deleteProduct)
 
 
 //FUNCIONES:----------------------------------------------------------------------------------------------//
+
+const validate = str =>{
+    const regEx = /^[a-zA-ZÀ-ÿ\s]{2,40}$/
+    return regEx.test(str)
+}
 
 //Función: Añadir producto al Array (creación o incremento en contador)
 /**
